@@ -1,25 +1,34 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+
+import Navbar from "./components/Navbar";
+import { BrowserRouter, withRouter } from "react-router-dom";
+import { Route } from "react-router";
+import { Provider } from "react-redux";
+import store from "./store";
+
+import Home from "./pages/Home";
+import Blog from "./pages/Blog";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
+import Dashboard from "./pages/Dashboard";
 
 function App() {
+  const Nav = withRouter(Navbar);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Provider store={store}>
+      <BrowserRouter>
+        <div className="App">
+          <header className="App-header">
+            <Nav />
+            <Route exact path="/" component={Home} />
+            <Route path="/blog" component={Blog} />
+            <Route path="/login" component={Login} />
+            <Route path="/register" component={Register} />
+            <Route path="/dashboard" component={Dashboard} />
+          </header>
+        </div>
+      </BrowserRouter>
+    </Provider>
   );
 }
 
